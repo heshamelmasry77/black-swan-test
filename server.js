@@ -6,11 +6,8 @@ var mongoose = require('mongoose');
 
 // var database;
 
-var Task = mongoose.model('Task', {
-  name: String,
-  description: String,
-  date_time: {type: Date, default: Date.now}
-});
+var Task = require('./models/task');
+var auth = require('./controllers/auth');
 
 app.use(bodyParser.json());
 
@@ -36,6 +33,7 @@ function GetTasks(res) {
   });
 }
 
+app.post('/api/users', auth.register);
 mongoose.connect('mongodb://localhost:27017/blackswan', function(err) {
   if (!err) {
     console.log('we are connected to mongo');
