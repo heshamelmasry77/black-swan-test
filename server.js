@@ -6,34 +6,17 @@ var mongoose = require('mongoose');
 
 // var database;
 
-var Task = require('./models/task');
-var auth = require('./controllers/auth');
+var authController = require('./controllers/authController');
+var taskController = require('./controllers/taskController');
 
 app.use(bodyParser.json());
 
-app.get('/api/task', GetTasks);
+app.get('/api/task', taskController.get);
 
-app.post('/api/task', function(req, res) {
-  console.log(req.body);
-  // database.collection('tasks').insertOne(req.body);
-  var task = new Task(req.body);
-  task.save();
+app.post('/api/task', taskController.post);
 
-  res.status(200);
-});
+app.post('/api/users', authController.register);
 
-function GetTasks(res) {
-  Task.find({}).exec(function(err, result) {
-    // console.log(result);
-    if (!err) {
-      res.send(result);
-    } else {
-      console.log('get tasks not available');
-    }
-  });
-}
-
-app.post('/api/users', auth.register);
 mongoose.connect('mongodb://localhost:27017/blackswan', function(err) {
   if (!err) {
     console.log('we are connected to mongo');
