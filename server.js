@@ -13,9 +13,11 @@ var taskController = require('./controllers/taskController');
 app.use(bodyParser.json());
 
 //Requests
-app.get('/api/task/:id', taskController.get);
+app.get('/api/task/:id?', taskController.get);
 
 app.post('/api/task', taskController.post);
+
+app.get('/api/users/:id?', authController.get);
 
 app.post('/api/users', authController.register);
 
