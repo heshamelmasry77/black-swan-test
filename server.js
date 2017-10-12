@@ -9,8 +9,10 @@ var mongoose = require('mongoose');
 var authController = require('./controllers/authController');
 var taskController = require('./controllers/taskController');
 
+//Middleware
 app.use(bodyParser.json());
 
+//Requests
 app.get('/api/task', taskController.get);
 
 app.post('/api/task', taskController.post);
