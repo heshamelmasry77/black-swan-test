@@ -24,23 +24,22 @@ module.exports = {
   },
   get: function(req, res) {
     if (req.params.id) {
-      User.findById(req.params.id).exec(function(err, result) {
-        // console.log(result);
-        if (!err) {
-          res.send(result);
-        } else {
-          console.log('get task by id not available');
+      User.findById(req.params.id, function(err, result) {
+        if (err) {
+          console.log('there was a problem running the query');
           res.send(err);
+        } else {
+          res.send(result);
         }
       });
     } else {
-      User.find({}).exec(function(err, result) {
+      User.find({}, function(err, result) {
         // console.log(result);
-        if (!err) {
-          res.send(result);
-        } else {
-          console.log('get tasks not available');
+        if (err) {
+          console.log('there was a problem running the query');
           res.send(err);
+        } else {
+          res.send(result);
         }
       });
     }

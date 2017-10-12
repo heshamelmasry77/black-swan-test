@@ -2,8 +2,10 @@ var Task = require('../models/task');
 
 module.exports = {
   get: function(req, res) {
+
+
     if (req.params.id) {
-      Task.findById(req.params.id).exec(function(err, result) {
+      Task.findById(req.params.id, function(err, result) {
         // console.log(result);
         if (!err) {
           res.send(result);
@@ -31,5 +33,5 @@ module.exports = {
     task.save();
 
     res.status(200);
-  },
+  }
 };
