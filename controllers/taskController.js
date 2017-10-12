@@ -2,15 +2,30 @@ var Task = require('../models/task');
 
 module.exports = {
   get: function(req, res) {
-    Task.find({}).populate('user').exec(function(err, result) {
-      // console.log(result);
-      if (!err) {
-        res.send(result);
-      } else {
-        console.log('get tasks not available');
-        res.send(err);
-      }
-    });
+
+    if (req.params.id) {
+      Task.findById(req.params.id).exec(function(err, result) {
+        // console.log(result);
+        if (!err) {
+          res.send(result);
+        } else {
+          console.log('get tasks not available');
+          res.send(err);
+        }
+      });
+    } else {
+
+      Task.find({}).populate('user').exec(function(err, result) {
+        // console.log(result);
+        if (!err) {
+          res.send(result + req.params.id);
+        } else {
+          console.log('get tasks not available');
+          res.send(err);
+        }
+      });
+    }
+
   },
   post: function(req, res) {
     console.log(req.body.user);
@@ -19,5 +34,5 @@ module.exports = {
     task.save();
 
     res.status(200);
-  }
+  },
 };
