@@ -16,8 +16,10 @@ module.exports = {
             res.status(500).send({
               message: err.message,
             });
+          } else {
+            res.send('SUCCESS!');
+            res.status(200);
           }
-          res.status(200);
         });
       }
     });
@@ -29,6 +31,7 @@ module.exports = {
           console.log('there was a problem running the query');
           res.send(err);
         } else {
+          res.send('SUCCESS!');
           res.send(result);
         }
       });
@@ -39,6 +42,7 @@ module.exports = {
           console.log('there was a problem running the query');
           res.send(err);
         } else {
+          res.send('SUCCESS!');
           res.send(result);
         }
       });
@@ -51,7 +55,7 @@ module.exports = {
           console.log('there was a problem deleting the user the query');
           res.send(err);
         } else {
-          res.send(result + " user is deleted");
+          res.send(result + ' user is deleted');
         }
       });
     } else {
@@ -60,23 +64,20 @@ module.exports = {
   },
   update: function(req, res) {
     if (req.params.id) {
-      User.update({_id: req.params.id},{
-        username: req.body.username,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email
+      User.update({_id: req.params.id}, {
+        $set: req.body
       }, function(err, result) {
         if (err) {
           console.log('there was a problem updating the user');
           res.send(err);
         } else {
-          res.send(result + " user details is updated");
+          res.send(result + ' user details is updated');
         }
       });
     } else {
       console.log(err);
     }
-  }
+  },
 };
 
 
