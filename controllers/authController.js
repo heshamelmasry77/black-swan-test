@@ -31,7 +31,6 @@ module.exports = {
           console.log('there was a problem running the query');
           res.send(err);
         } else {
-          res.send('SUCCESS!');
           res.send(result);
         }
       });
@@ -42,7 +41,6 @@ module.exports = {
           console.log('there was a problem running the query');
           res.send(err);
         } else {
-          res.send('SUCCESS!');
           res.send(result);
         }
       });
