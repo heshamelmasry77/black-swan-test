@@ -6,7 +6,6 @@ module.exports = {
 
     if (req.params.id) {
       Task.findById(req.params.id, function(err, result) {
-        // console.log(result);
         if (!err) {
           res.send(result);
         } else {
@@ -27,9 +26,8 @@ module.exports = {
     } else if (req.params.user_id && req.params.task_id) {
       Task.find({
         user: req.params.user_id,
-        _id: req.params.task_id,
+        _id: req.params.task_id
       }, function(err, result) {
-        // console.log(result);
         if (!err) {
           res.send(result);
         } else {
@@ -39,7 +37,6 @@ module.exports = {
       });
     } else {
       Task.find({}).populate('user').exec(function(err, result) {
-        // console.log(result);
         if (!err) {
           res.send(result);
         } else {
@@ -50,8 +47,6 @@ module.exports = {
     }
   },
   post: function(req, res) {
-    // console.log(req.body.user);
-    // database.collection('tasks').insertOne(req.body);
     if (req.params.user_id) {
       var task = new Task({
             user: req.params.user_id,
@@ -96,7 +91,7 @@ module.exports = {
     if (req.params.user_id && req.params.task_id) {
       Task.remove({
         _id: req.params.task_id,
-        user: req.params.user_id,
+        user: req.params.user_id
       }, function(err, result) {
         if (err) {
           console.log('there was a problem deleting the task for a user query');

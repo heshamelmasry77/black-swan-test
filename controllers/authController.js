@@ -14,7 +14,7 @@ module.exports = {
         user.save(function(err, result) {
           if (err) {
             res.status(500).send({
-              message: err.message,
+              message: err.message
             });
           } else {
             res.send('SUCCESS!');
@@ -36,7 +36,6 @@ module.exports = {
       });
     } else {
       User.find({}, function(err, result) {
-        // console.log(result);
         if (err) {
           console.log('there was a problem running the query');
           res.send(err);
@@ -75,7 +74,7 @@ module.exports = {
     } else {
       console.log(err);
     }
-  },
+  }
 };
 
 
