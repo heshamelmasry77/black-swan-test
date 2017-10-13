@@ -24,6 +24,19 @@ module.exports = {
           res.send(err);
         }
       });
+    } else if (req.params.user_id && req.params.task_id) {
+      Task.find({
+        user: req.params.user_id,
+        _id: req.params.task_id,
+      }, function(err, result) {
+        // console.log(result);
+        if (!err) {
+          res.send(result);
+        } else {
+          console.log('get tasks info for a user not available');
+          res.send(err);
+        }
+      });
     } else {
       Task.find({}).populate('user').exec(function(err, result) {
         // console.log(result);
@@ -37,25 +50,63 @@ module.exports = {
     }
   },
   post: function(req, res) {
-    console.log(req.body.user);
+    // console.log(req.body.user);
     // database.collection('tasks').insertOne(req.body);
-    var task = new Task(req.body);
-    task.save();
+    if (req.params.user_id) {
+      var task = new Task({
+            user: req.params.user_id,
+            name: req.body.name,
+            description: req.body.description
+          }
+      );
+      task.save(function(err){ // will this callback always be called correctly?
+        console.log('yes');
 
-    res.status(200);
+        if(err) {
+          res.send('ERROR!');
+        }
+        else {
+          res.send('SUCCESS!');
+          res.status(200);
+        }
+      });
+    }
   },
-  delete: function(req, res) {
-    if (req.params.id) {
-      Task.remove({_id: req.params.id}, function(err, result) {
+  update: function(req, res) {
+    if (req.params.task_id) {
+      Task.update({
+        _id: req.params.task_id,
+        user: req.params.user_id
+      }, {
+        name: req.body.name,
+        description: req.body.description
+      }, function(err, result) {
         if (err) {
-          console.log('there was a problem deleting the user the query');
+          console.log('there was a problem updating a task');
           res.send(err);
         } else {
-          res.send(result + ' task is deleted');
+          res.send(result + ' task details is updated');
         }
       });
     } else {
       console.log(err);
     }
   },
+  delete: function(req, res) {
+    if (req.params.user_id && req.params.task_id) {
+      Task.remove({
+        _id: req.params.task_id,
+        user: req.params.user_id,
+      }, function(err, result) {
+        if (err) {
+          console.log('there was a problem deleting the task for a user query');
+          res.send(err);
+        } else {
+          res.send(result + ' task for user is deleted');
+        }
+      });
+    } else {
+      console.log(err);
+    }
+  }
 };

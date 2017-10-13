@@ -14,9 +14,10 @@ app.use(bodyParser.json());
 
 //Requests
 app.get('/api/task/:id?', taskController.get);
-app.get('/api/users/:user_id/tasks', taskController.get);
-app.delete('/api/task/:id', taskController.delete);
-app.post('/api/task', taskController.post);
+app.get('/api/users/:user_id/tasks/:task_id?', taskController.get);
+app.delete('/api/users/:user_id/tasks/:task_id', taskController.delete);
+app.post('/api/users/:user_id/tasks/:task_id', taskController.update);
+app.post('/api/users/:user_id/tasks', taskController.post);
 
 app.get('/api/users/:id?', authController.get);
 app.delete('/api/users/:id', authController.delete);
