@@ -5,7 +5,7 @@ The project is divided to two models and two controllers main folders are (model
 
 * models : where is the mangoose schema.
 * controllers : Is where i do my crud functions .
-* server.js : Is where app lives and api calles.
+* server.js : Is where app lives and api calls.
 
 
 To run the project:
