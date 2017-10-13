@@ -14,7 +14,7 @@ module.exports = {
         user.save(function(err, result) {
           if (err) {
             res.status(500).send({
-              message: err.message
+              message: err.message,
             });
           }
           res.status(200);
@@ -42,6 +42,39 @@ module.exports = {
           res.send(result);
         }
       });
+    }
+  },
+  delete: function(req, res) {
+    if (req.params.id) {
+      User.remove({_id: req.params.id}, function(err, result) {
+        if (err) {
+          console.log('there was a problem deleting the user the query');
+          res.send(err);
+        } else {
+          res.send(result + " user is deleted");
+        }
+      });
+    } else {
+      console.log(err);
+    }
+  },
+  update: function(req, res) {
+    if (req.params.id) {
+      User.update({_id: req.params.id},{
+        username: req.body.username,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email
+      }, function(err, result) {
+        if (err) {
+          console.log('there was a problem updating the user');
+          res.send(err);
+        } else {
+          res.send(result + " user details is updated");
+        }
+      });
+    } else {
+      console.log(err);
     }
   }
 };

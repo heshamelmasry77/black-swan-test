@@ -14,11 +14,13 @@ app.use(bodyParser.json());
 
 //Requests
 app.get('/api/task/:id?', taskController.get);
-
+app.get('/api/users/:user_id/tasks', taskController.get);
+app.delete('/api/task/:id', taskController.delete);
 app.post('/api/task', taskController.post);
 
 app.get('/api/users/:id?', authController.get);
-
+app.delete('/api/users/:id', authController.delete);
+app.post('/api/users/:id', authController.update);
 app.post('/api/users', authController.register);
 
 mongoose.connect('mongodb://localhost:27017/blackswan', function(err) {
