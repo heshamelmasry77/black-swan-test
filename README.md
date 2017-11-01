@@ -1,4 +1,4 @@
-# black-swan-test
+# CRUD using node and express
 It is a simple experss node app for create update delete an getting data 
 
 The project is divided to two models and two controllers main folders are (models, controllers).
